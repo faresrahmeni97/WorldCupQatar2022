@@ -28,24 +28,20 @@ public class JoueurControlleur {
     private JoueurControlleur FileUploadUtil;
 
     @PostMapping("/joueurs/save")
-    public RedirectView saveUser(Joueur joueur,
+    public RedirectView saveJoueur(Joueur joueur,
                                  @RequestParam("image") MultipartFile multipartFile) throws IOException {
-
+   //Ajout photo ?
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         joueur.setPhotos(fileName);
-
         Joueur savedUser = joueurR.save(joueur);
-
         String uploadDir = "joueur-photos/" + savedUser.getId();
-        
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-      // FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
         return new RedirectView("/joueurs", true);
     }
     @GetMapping("/joueurs")
-
-    public List<Joueur> getAllUsers() {
+ //afficher les joueurs
+    public List<Joueur> getAllJoueurs() {
         List <Joueur> pro = joueurR.findAll();
 
         for (Joueur joueur : pro) {
@@ -57,32 +53,32 @@ public class JoueurControlleur {
 
     }
     @PostMapping("/addjoueur")
-
+//ajouter joueur
     public Joueur createJoueur(@Valid @RequestBody Joueur joueur) {
         return joueurR.save(joueur);
     }
 
 
     @GetMapping("/joueur/{id}")
-    public Joueur getUserById(@PathVariable(value = "id") Long Id) {
+    public Joueur getJoueurById(@PathVariable(value = "id") Long Id) {
+        //afficher joueur par id
         return joueurR.findById(Id).orElseThrow(null);
         // .orElseThrow(() -> new ResourceNotFoundException("Joueur", "id", Id));
     }
 
     @DeleteMapping("/joueurdelete/{id}")
+    //supprimer joueur
     public ResponseEntity<?> deleteJoueur(@PathVariable(value = "id") Long joueurId) {
         Joueur joueur = joueurR.findById(joueurId).orElseThrow(null);
-        //.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
-
-        // userRepository.deleteById(userId);
         joueurR.delete(joueur);
-
         return ResponseEntity.ok().build();
     }
-    public static void saveFile(String uploadDir, String fileName,
+
+
+   public static void saveFile(String uploadDir, String fileName,
                                 MultipartFile multipartFile) throws IOException {
         Path uploadPath = Paths.get(uploadDir);
-
+//enregistrer photo joueur
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
@@ -96,17 +92,16 @@ public class JoueurControlleur {
     }
 
     @PutMapping("/joueur/{id}")
+    //modifier joueur
     public Joueur updateJoueur(@PathVariable(value = "id") Long Id,
                            @Valid @RequestBody Joueur userDetails) {
 
         Joueur joueur = joueurR.findById(Id).orElseThrow(null);
-
-
         joueur.setClubjoueur(userDetails.getclubjoueur());
         joueur.setNumposte(userDetails.getnumposte());
         joueur.setPoste(userDetails.getposte());
         joueur.setPhotos(userDetails.getPhotos());
-
+        joueur.setTitulaire(userDetails.isTitulaire());
         Joueur updatedJoueur = joueurR.save(joueur);
         return updatedJoueur;
     }

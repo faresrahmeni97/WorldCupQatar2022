@@ -23,8 +23,9 @@ public class Joueur implements Serializable {
     private String clubjoueur;
     private Long numposte;
     private String poste;
+    private boolean titulaire;
     @Column(nullable = true, length = 64)
-    private String photos;
+    private String photoJoueur;
 
     @ManyToOne
     @JoinColumn(name = "equipeId", nullable = false)
@@ -64,7 +65,7 @@ public class Joueur implements Serializable {
         this.clubjoueur = clubjoueur;
         this.numposte = numposte;
         this.poste = poste;
-        this.photos=photos;
+        this.photoJoueur=photos;
 
     }
     public void setId(Long id) {
@@ -90,16 +91,23 @@ public class Joueur implements Serializable {
         this.poste = poste;
     }
 
+    public boolean isTitulaire() {
+        return titulaire;
+    }
 
-    public void setPhotos(String photos) {this.photos = photos;}
+    public void setTitulaire(boolean titulaire) {
+        this.titulaire = titulaire;
+    }
+
+    public void setPhotos(String photos) {this.photoJoueur = photos;}
     public String getPhotos() {
-        if (photos == null || id == null) return null;
+        if (photoJoueur == null || id == null) return null;
 
-        return "/joueur-photos/" + id + "/" + photos;
+        return "/joueur-photos/" + id + "/" + photoJoueur;
     }
     @Override
     public String toString() {
-        return "Joueur [id=" + id + ", clubjoueur=" + clubjoueur + ", numposte=" + numposte + ", poste=" + poste +", photos=" + photos + "]";
+        return "Joueur [id=" + id + ", clubjoueur=" + clubjoueur + ", numposte=" + numposte + ", poste=" + poste +", photos=" + photoJoueur + "]";
     }
 
 

@@ -54,11 +54,7 @@ public class Equipe implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-/*
-    public List<Joueur> getRemplacant() {
-        return remplacant;
-    }
--*/
+
     public String getPaysequipe() {
         return Paysequipe;
     }
@@ -81,11 +77,7 @@ public class Equipe implements Serializable {
     public void setSystemequipenationnal(String systemequipenationnal) {
         Systemequipenationnal = systemequipenationnal;
     }
-/*
-    public void setRemplacant(List<Joueur> remplacant) {
-        this.remplacant = remplacant;
-    }
-*/
+
     public void setNbcoupe(Long nbcoupe) {
         this.nbcoupe = nbcoupe;
     }

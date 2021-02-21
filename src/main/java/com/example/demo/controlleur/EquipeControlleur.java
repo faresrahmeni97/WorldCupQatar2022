@@ -68,7 +68,6 @@ public class EquipeControlleur {
             equipe.setNbcoupe(equipeDetails.getNbcoupe());
             equipe.setPaysequipe(equipeDetails.getPaysequipe());
             equipe.setSystemequipenationnal(equipeDetails.getSystemequipenationnal());
-      //      equipe.setRemplacant(equipeDetails.getRemplacant());
 
 
            Equipe updatedEquipe = equipr.save(equipe);
