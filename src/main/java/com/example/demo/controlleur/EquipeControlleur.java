@@ -74,4 +74,6 @@ public class EquipeControlleur {
             return updatedEquipe;
         }
 
+
+
 }

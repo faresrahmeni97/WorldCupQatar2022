@@ -97,5 +97,11 @@ public class Equipe implements Serializable {
         return "Equipe [id=" + id + ", Paysequipe=" + Paysequipe + ", Systemequipenationnal=" + Systemequipenationnal  +", nbcoupe=" + nbcoupe + ", imageequipe=" + imageequipe + "]";
     }
 
+    public List<Joueur> getJoueurs() {
+        return joueurs;
+    }
 
+    public void setJoueurs(List<Joueur> joueurs) {
+        this.joueurs = joueurs;
+    }
 }

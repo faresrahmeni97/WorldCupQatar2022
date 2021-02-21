@@ -1,5 +1,7 @@
 package com.example.demo.controlleur;
+import com.example.demo.entities.Equipe;
 import com.example.demo.entities.Joueur;
+import com.example.demo.repository.EquipeRepository;
 import com.example.demo.repository.JoueurRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +17,7 @@ import java.nio.file.*;
 import javax.validation.Valid;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 @RestController
 @CrossOrigin(origins ="http://localhost:4200")
@@ -25,6 +28,8 @@ public class JoueurControlleur {
     private static final Logger logger = LogManager.getLogger(UserController.class);
     @Autowired
     JoueurRepository joueurR;
+    @Autowired
+    EquipeRepository equipeR;
     private JoueurControlleur FileUploadUtil;
 
     @PostMapping("/joueurs/save")
@@ -105,5 +110,16 @@ public class JoueurControlleur {
         Joueur updatedJoueur = joueurR.save(joueur);
         return updatedJoueur;
     }
+
+    @PutMapping("/affecterJoueur/{jid}/{eid}")
+    public void affecterUser(@PathVariable(value = "jid") Long Jid,
+                             @PathVariable(value = "eid") Long Eip,@Valid Equipe eq) {
+        List<Joueur> listj=new ArrayList<>();
+        Joueur joueur = joueurR.findById(Jid).get();
+        Equipe equipe=equipeR.findById(Eip).get();
+        listj.add(joueur);
+        equipe.setJoueurs(listj);
+        equipeR.save(equipe);
+          }
 
 }
